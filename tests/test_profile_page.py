@@ -5,6 +5,8 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import pytest
+import random
+import string
 from unittestzero import Assert
 
 from pages.edit_profile import EditProfile
@@ -25,9 +27,9 @@ class TestProfilePage:
         Assert.true(profile_page.is_username_visible)
         profile_page.click_edit_profile_button()
         edit_profile_page = EditProfile(mozwebqa)
-        new_username = "TestUser"
-        new_lastname = "Lastname"
-        new_firstname = "First"
+        new_username = "TestUser%s" % random.randint(0, 100)
+        new_lastname = "Lastname%s" % random.choice(string.ascii_letters)
+        new_firstname = "First%s" % random.choice(string.ascii_letters)
         edit_profile_page.set_username(new_username)
         edit_profile_page.set_last_name(new_lastname)
         edit_profile_page.set_first_name(new_firstname)
