@@ -23,10 +23,9 @@ class TestEditEventPage:
         home_page.login()
         events_page = home_page.header.click_events_link()
         event_detail_page = events_page.go_to_event_detail_page()
-        event_detail_page.click_edit_event_button()
+        edit_event_page = event_detail_page.click_edit_event_button()
 
         #update event description
-        edit_event_page = EditEvent(mozwebqa)
         current_time = str(time.time()).split('.')[0]
         new_description = "Updated event description %s" % current_time
         edit_event_page.set_event_description(new_description)

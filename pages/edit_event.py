@@ -5,6 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
 from pages.event_detail import EventDetail
@@ -13,7 +14,12 @@ from pages.event_detail import EventDetail
 class EditEvent(Base):
 
     _description_field_locator = (By.ID, 'id_description')
-    _save_event_button_locator = (By.CSS_SELECTOR, '.four.columns.align-right.hide-on-phones button')
+    _save_event_button_locator = (By.CSS_SELECTOR, '.hide-for-small:nth-child(2) > button:nth-child(2)')
+
+    def __init__(self, testsetup):
+        Base.__init__(self, testsetup)
+        WebDriverWait(self.selenium, self.timeout).until(
+                lambda s: len(s.find_elements(*self._description_field_locator)))
 
     def click_save_event_button(self):
         self.selenium.find_element(*self._save_event_button_locator).click()
