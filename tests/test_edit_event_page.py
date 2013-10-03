@@ -22,8 +22,7 @@ class TestEditEventPage:
         home_page = Home(mozwebqa)
         home_page.login()
         events_page = home_page.header.click_events_link()
-        events_page.go_to_event_detail_page()
-        event_detail_page = EventDetail(mozwebqa)
+        event_detail_page = events_page.go_to_event_detail_page()
         event_detail_page.click_edit_event_button()
 
         #update event description

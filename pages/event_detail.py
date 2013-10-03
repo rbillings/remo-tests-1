@@ -5,15 +5,22 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
 
 
 class EventDetail(Base):
 
+    _page_title_locator = (By.ID, 'h1.event-single-title')
     _edit_event_button_locator = (By.CSS_SELECTOR, '.four.columns.align-right.hide-on-phones > a:nth-child(3)')
     _event_description_locator = (By.CSS_SELECTOR, '.profile-item:nth-child(2)')
     _event_saved_message_locator = (By.CSS_SELECTOR, '.alert-box.success')
+
+    def __init__(self, testsetup):
+        Base.__init__(self, testsetup)
+        WebDriverWait(self.selenium, self.timeout).until(
+            lambda s: len(s.find_elements(*self._event_description_locator)))
 
     def click_edit_event_button(self):
         self.selenium.find_element(*self._edit_event_button_locator).click()

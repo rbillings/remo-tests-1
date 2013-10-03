@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
+from pages.event_detail import EventDetail
 
 
 class Events(Base):
@@ -28,12 +29,12 @@ class Events(Base):
 
     def __init__(self, testsetup):
         Base.__init__(self, testsetup)
-        # Wait for the page to be populated
         WebDriverWait(self.selenium, self.timeout).until(
                 lambda s: len(s.find_elements(*self._events_result_locator)))
 
     def go_to_event_detail_page(self):
         self.selenium.get(self.base_url + '/e/eventedit/')
+        return EventDetail(self.testsetup)
 
     @property
     def is_events_map_visible(self):
