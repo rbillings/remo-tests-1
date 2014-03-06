@@ -13,7 +13,9 @@ from pages.base import Base
 class Events(Base):
 
     _page_title = 'Mozilla Reps - Events'
-
+    _advanced_options_button_locator = (By.ID, 'adv-search-icon-events')
+    _advanced_search_form_locator = (By.ID, 'searchform')
+    _create_event_button_locator = (By.ID, 'events-create-button')
     _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
     _events_map_locator = (By.ID, 'map')
@@ -23,8 +25,7 @@ class Events(Base):
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
     _events_owner_locator = (By.CSS_SELECTOR, 'div.events-table-owner a')
     _events_icalendar_export_button_locator = (By.ID, 'icalendar-export-button')
-    _advanced_options_button_locator = (By.ID, 'adv-search-icon-events')
-    _advanced_search_form_locator = (By.ID, 'searchform')
+
 
     def __init__(self, testsetup):
         Base.__init__(self, testsetup)
@@ -82,6 +83,9 @@ class Events(Base):
 
     def click_advanced_options(self):
         self.selenium.find_element(*self._advanced_options_button_locator).click()
+
+    def click_create_event_button(self):
+        self.selenium.find_element(*self._create_event_button_locator).click()
 
     def click_timeline(self):
         self.selenium.find_element(*self._events_timeline_button_locator).click()
